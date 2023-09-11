@@ -6,20 +6,33 @@
 
 :root {
     font-family: "Helvetica Neue", sans-serif;
+    --white: #e0e0e0;
 }
 
 body {
-    background: #333;
-    --white: #e0e0e0;
+    display: flex;
+    flex-direction: column;
+
+    background: url("assets/bg.png");
+    color: var(--white);
+    min-height: 100vh;
 }
 
 header {
     display: flex;
     justify-content: space-between;
+    align-items: end;
+
+    height: 12rem;
+
     padding: 5rem 5rem 3rem 5rem;
-    color: var(--white);
+
     font-size: 30pt;
-    border-bottom: 2px solid var(--white);
+    border-bottom: 1px solid var(--white);
+}
+
+header > img {
+    height: 300px;
 }
 
 header nav {
@@ -29,4 +42,31 @@ header nav {
 header nav a {
     color: var(--white);
     margin-left: 1rem;
+    text-decoration: none;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    padding: 3rem 6rem;
+}
+
+main section {
+    overflow: hidden;
+
+    padding: 3rem;
+}
+
+.main-image-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 90%;
+}
+
+.main-image-container img {
+    height: 100%;
 }
