@@ -64,7 +64,7 @@ main {
     height: calc(var(--height-container) + var(--sphere-size));
     width: calc(var(--width-container) + var(--sphere-size));
     transform-origin: center;
-    animation: rotate 20s;
+    animation: rotate 18s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
 }
@@ -76,7 +76,11 @@ main {
     height: var(--sphere-size);
     width: var(--sphere-size);
     border-radius: 100%;
-    transform: perspective(-270px) rotate3d(-1, 0, 0, 40deg);
+    animation-name: darken;
+    animation-duration: 9s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate-reverse;
 }
 
 .circle-1 {
@@ -85,22 +89,27 @@ main {
 
 .circle-2 {
     transform: translate(var(--side-1), var(--top-1));
+    animation-delay: 1.5s;
 }
 
 .circle-3 {
-    transform: translate(var(--side-2), var(--top-2));
+    transform: translate(var(--side-1), var(--top-2));
+    animation-delay: 3s;
 }
 
 .circle-4 {
     transform: translate(0, var(--height-container));
+    animation-delay: 4.5s;
 }
 
 .circle-5 {
-    transform: translate(var(--side-1), var(--top-2));
+    transform: translate(var(--side-2), var(--top-2));
+    animation-delay: 6s;
 }
 
 .circle-6 {
     transform: translate(var(--side-2), var(--top-1));
+    animation-delay: 7.5s;
 }
 
 @keyframes rotate {
@@ -110,5 +119,15 @@ main {
 
     to {
         transform: rotate(360deg);
+    }
+}
+
+@keyframes darken {
+    from {
+        filter: opacity(1)
+    }
+
+    to {
+        filter: opacity(0)
     }
 }
