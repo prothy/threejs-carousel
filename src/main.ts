@@ -1,1 +1,2 @@
-import "./landing.css";
+import './landing.css';
+import './carousel';
