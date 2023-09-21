@@ -12,24 +12,38 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 const mainElement = document.querySelector('main');
 mainElement?.appendChild(renderer.domElement);
 
-camera.position.z = 5;
+const axesHelper = new Three.AxesHelper(3);
+scene.add(axesHelper);
+
+const CAMERA_Y = 3;
+const CAMERA_Z = 5;
+const rotateX = -Math.atan(CAMERA_Y / CAMERA_Z);
+
+camera.position.y = CAMERA_Y;
+camera.position.z = CAMERA_Z;
+
+camera.rotateX(rotateX);
 
 let angle = 0;
 const SPEED = 0.01;
 const CIRCLE_SIZE = 9;
 
+const circleGeometry = new Three.CircleGeometry(0.8, 512);
+const material = new Three.MeshBasicMaterial({ color: 0xefefef });
+
 class Circle {
     constructor() {
-        const circleGeometry = new Three.CircleGeometry(0.8, 512);
-        const material = new Three.MeshBasicMaterial({ color: 0xefefef });
         this.circle = new Three.Mesh(circleGeometry, material);
         scene.add(this.circle);
+
+        this.circle.rotateX(rotateX);
+        this.circle.rotateY(Math.atan(0));
+        this.circle.rotateZ(Math.atan(0));
     }
 
     move() {
         angle += SPEED;
         this.circle.position.x += Math.cos(angle) * SPEED * CIRCLE_SIZE * 1.2;
-        this.circle.position.y += Math.sin(angle) * SPEED * CIRCLE_SIZE * 0.5;
         this.circle.position.z -= Math.sin(angle) * SPEED * CIRCLE_SIZE * 0.8;
     }
 
@@ -48,8 +62,6 @@ function animate() {
     circles.forEach((circle) => {
         circle.move();
     });
-
-    // circle.move();
 
     renderer.render(scene, camera);
 }
