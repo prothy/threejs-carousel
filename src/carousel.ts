@@ -24,44 +24,60 @@ camera.position.z = CAMERA_Z;
 
 camera.rotateX(rotateX);
 
-let angle = 0;
 const SPEED = 0.01;
-const CIRCLE_SIZE = 9;
+const CIRCLE_SIZE = 5;
 
 const circleGeometry = new Three.CircleGeometry(0.8, 512);
 const material = new Three.MeshBasicMaterial({ color: 0xefefef });
 
 class Circle {
-    constructor() {
+    constructor(angle = 0) {
+        this.angle = angle;
         this.circle = new Three.Mesh(circleGeometry, material);
         scene.add(this.circle);
 
+        this.circle.position.x = this.getPositionX(this.angle);
+        this.circle.position.z = this.getPositionZ(this.angle);
+
+        console.log(this.circle.position.x, this.circle.position.z, this.angle);
+
         this.circle.rotateX(rotateX);
-        this.circle.rotateY(Math.atan(0));
-        this.circle.rotateZ(Math.atan(0));
+    }
+
+    getPositionX(angle: number) {
+        return Math.cos(angle) * SPEED * CIRCLE_SIZE;
+    }
+
+    getPositionZ(angle: number) {
+        return -Math.sin(angle) * SPEED * CIRCLE_SIZE;
     }
 
     move() {
-        angle += SPEED;
-        this.circle.position.x += Math.cos(angle) * SPEED * CIRCLE_SIZE * 1.2;
-        this.circle.position.z -= Math.sin(angle) * SPEED * CIRCLE_SIZE * 0.8;
+        this.angle += SPEED;
+        this.circle.position.x += this.getPositionX(this.angle);
+        this.circle.position.z += this.getPositionZ(this.angle);
     }
 
+    angle;
     circle;
 }
 
 const circle1 = new Circle();
-const circle2 = new Circle();
-const circle3 = new Circle();
+const circle2 = new Circle(1);
+const circle3 = new Circle(2);
 
 const circles = [circle1, circle2, circle3]; // new Array<Circle>(1).map(() => new Circle());
 
 function animate() {
     requestAnimationFrame(animate);
 
-    circles.forEach((circle) => {
-        circle.move();
-    });
+    // circles.forEach((circle) => {
+    //     circle.move();
+    // });
+
+    circle1.move();
+    circle2.move();
+    circle3.move();
 
     renderer.render(scene, camera);
 }
