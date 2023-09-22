@@ -31,8 +31,6 @@ circles.map((_, index, array) => {
     array[index] = new Circle(index, circles.length, scene);
 });
 
-console.log(circles);
-
 function animate() {
     requestAnimationFrame(animate);
 

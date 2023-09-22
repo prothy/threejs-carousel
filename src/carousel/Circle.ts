@@ -24,8 +24,6 @@ export default class Circle {
         const newColor = 0.8 + Math.cos(this.angle) * 0.2;
         this.circle.material.color.setRGB(newColor, newColor, newColor);
 
-        console.log(this.angle, newColor);
-
         this.circle.position.x = this.getPositionX();
         this.circle.position.z = this.getPositionZ();
 
