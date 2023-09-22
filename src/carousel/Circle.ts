@@ -1,7 +1,7 @@
 import * as Three from 'three';
 import { ROTATE_X } from '.';
 
-const SPEED = 0.01;
+const SPEED = 0.005;
 const CIRCLE_RADIUS = 5;
 
 const origin = {
@@ -13,7 +13,7 @@ const angleCoefficient = Math.PI * 2;
 
 export default class Circle {
     constructor(index: number, total: number, scene: Three.Scene) {
-        const circleGeometry = new Three.CircleGeometry(0.8, 512);
+        const circleGeometry = new Three.CircleGeometry(1.2, 512);
         const material = new Three.MeshBasicMaterial({ color: 0xefefef });
 
         this.circle = new Three.Mesh(circleGeometry, material);
