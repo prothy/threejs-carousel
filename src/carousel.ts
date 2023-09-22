@@ -25,46 +25,53 @@ camera.position.z = CAMERA_Z;
 camera.rotateX(rotateX);
 
 const SPEED = 0.01;
-const CIRCLE_SIZE = 5;
+const CIRCLE_RADIUS = 5;
 
 const circleGeometry = new Three.CircleGeometry(0.8, 512);
 const material = new Three.MeshBasicMaterial({ color: 0xefefef });
 
+const origin = {
+    x: 0,
+    z: -5
+};
+
+const angleCoefficient = Math.PI * 2;
+
 class Circle {
-    constructor(angle = 0) {
-        this.angle = angle;
+    constructor(index: number, total: number) {
+        this.angle = (index * angleCoefficient) / total;
         this.circle = new Three.Mesh(circleGeometry, material);
         scene.add(this.circle);
 
-        this.circle.position.x = this.getPositionX(this.angle);
-        this.circle.position.z = this.getPositionZ(this.angle);
+        this.circle.position.x = this.getPositionX();
+        this.circle.position.z = this.getPositionZ();
 
         console.log(this.circle.position.x, this.circle.position.z, this.angle);
 
         this.circle.rotateX(rotateX);
     }
 
-    getPositionX(angle: number) {
-        return Math.cos(angle) * SPEED * CIRCLE_SIZE;
+    getPositionX() {
+        return origin.x + Math.sin(this.angle) * CIRCLE_RADIUS;
     }
 
-    getPositionZ(angle: number) {
-        return -Math.sin(angle) * SPEED * CIRCLE_SIZE;
+    getPositionZ() {
+        return origin.z + Math.cos(this.angle) * CIRCLE_RADIUS;
     }
 
     move() {
         this.angle += SPEED;
-        this.circle.position.x += this.getPositionX(this.angle);
-        this.circle.position.z += this.getPositionZ(this.angle);
+        this.circle.position.x = Math.cos(this.angle) * CIRCLE_RADIUS;
+        this.circle.position.z = -5 + Math.sin(this.angle) * CIRCLE_RADIUS;
     }
 
     angle;
     circle;
 }
 
-const circle1 = new Circle();
-const circle2 = new Circle(1);
-const circle3 = new Circle(2);
+const circle1 = new Circle(0, 3);
+const circle2 = new Circle(1, 3);
+const circle3 = new Circle(2, 3);
 
 const circles = [circle1, circle2, circle3]; // new Array<Circle>(1).map(() => new Circle());
 
