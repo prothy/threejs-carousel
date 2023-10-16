@@ -1,16 +1,5 @@
 import * as Three from 'three';
-import { ROTATE_X } from '.';
-
-const SPEED = 0.003;
-const CIRCLE_RADIUS = 5;
-
-const origin = {
-    x: 0,
-    y: -2,
-    z: -5
-};
-
-const ANGLE_COEFFICIENT = Math.PI * 2;
+import { ANGLE_COEFFICIENT, CIRCLE_RADIUS, ROTATE_X, SPEED, ORIGIN } from '../constants';
 
 export default class Circle {
     constructor(index: number, total: number, scene: Three.Scene) {
@@ -25,7 +14,7 @@ export default class Circle {
         this.rotationZ = Math.random() * 0.03 - 0.015;
 
         this.circle.position.x = this.getPositionX();
-        this.circle.position.y = origin.y;
+        this.circle.position.y = ORIGIN.y;
         this.circle.position.z = this.getPositionZ();
 
         // rotate around x-axis as perspective is distorted due to camera
@@ -35,11 +24,16 @@ export default class Circle {
     }
 
     getPositionX() {
-        return origin.x + Math.sin(this.angle) * CIRCLE_RADIUS;
+        return ORIGIN.x + Math.sin(this.angle) * CIRCLE_RADIUS;
     }
 
     getPositionZ() {
-        return origin.z + Math.cos(this.angle) * CIRCLE_RADIUS;
+        return ORIGIN.z + Math.cos(this.angle) * CIRCLE_RADIUS;
+    }
+
+    rotate() {
+        this.circle.rotation.x += this.rotationX;
+        this.circle.rotation.y += this.rotationZ;
     }
 
     move() {
@@ -48,8 +42,7 @@ export default class Circle {
         this.circle.position.x = this.getPositionX();
         this.circle.position.z = this.getPositionZ();
 
-        this.circle.rotation.x += this.rotationX;
-        this.circle.rotation.y += this.rotationZ;
+        this.circle.material.color.set(0xffffff);
     }
 
     angle;
