@@ -10,7 +10,7 @@ const origin = {
     z: -5
 };
 
-const angleCoefficient = Math.PI * 2;
+const ANGLE_COEFFICIENT = Math.PI * 2;
 
 export default class Circle {
     constructor(index: number, total: number, scene: Three.Scene) {
@@ -20,7 +20,7 @@ export default class Circle {
         this.circle = new Three.Mesh(circleGeometry, material);
         scene.add(this.circle);
 
-        this.angle = (index * angleCoefficient) / total;
+        this.angle = (index * ANGLE_COEFFICIENT) / total;
         this.rotationX = Math.random() * 0.03 - 0.015;
         this.rotationZ = Math.random() * 0.03 - 0.015;
 
@@ -30,6 +30,8 @@ export default class Circle {
 
         // rotate around x-axis as perspective is distorted due to camera
         this.circle.rotateX(ROTATE_X);
+
+        console.log(this.circle.position);
     }
 
     getPositionX() {

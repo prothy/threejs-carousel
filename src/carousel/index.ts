@@ -23,7 +23,7 @@ const renderer = new Three.WebGLRenderer({
 });
 renderer.setSize(window.innerWidth, window.innerHeight);
 
-const mainElement = document.querySelector('main');
+const mainElement = document.querySelector('main') as HTMLCanvasElement;
 mainElement?.appendChild(renderer.domElement);
 
 // const axesHelper = new Three.AxesHelper(3);
@@ -45,12 +45,48 @@ circles.map((_, index, array) => {
     array[index] = new Circle(index, circles.length, scene);
 });
 
+const raycaster = new Three.Raycaster();
+
+function getCanvasRelativePosition(event: MouseEvent) {
+    const rect = renderer.domElement.getBoundingClientRect();
+
+    return {
+        x: ((event.clientX - rect.left) * renderer.domElement.width) / rect.width,
+        y: ((event.clientY - rect.top) * renderer.domElement.height) / rect.height
+    };
+}
+
+const pickPosition = {
+    x: 0,
+    y: 0
+};
+
+function setPickPosition(event: MouseEvent) {
+    const pos = getCanvasRelativePosition(event);
+
+    pickPosition.x = (pos.x / renderer.domElement.width) * 2 - 1;
+    pickPosition.y = (pos.y / renderer.domElement.height) * -2 + 1; // note we flip Y
+}
+
+mainElement?.addEventListener('mousemove', setPickPosition);
+
 function animate() {
     requestAnimationFrame(animate);
 
     circles.forEach((circle) => {
         circle.move();
     });
+
+    raycaster.setFromCamera(pickPosition as Three.Vector2, camera);
+    const intersects = raycaster.intersectObjects(scene.children);
+
+    for (let i = 0; i < intersects.length; i++) {
+        console.log(intersects);
+        if (intersects.length) {
+            intersects[i].object.material.color.set(0xff0000);
+            console.log('asdf');
+        }
+    }
 
     renderer.render(scene, camera);
 }
