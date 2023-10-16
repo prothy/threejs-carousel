@@ -9,7 +9,7 @@ const pickPosition = {
 };
 
 class Pointer {
-	constructor(renderer: WebGLRenderer, camera, scene) {
+	constructor(renderer: WebGLRenderer, camera: Three.Camera, scene: Three.Scene) {
 		this.renderer = renderer;
 		this.camera = camera;
 		this.scene = scene;
