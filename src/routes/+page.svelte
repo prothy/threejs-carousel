@@ -1,10 +1,11 @@
 <script>
 	import { onMount } from 'svelte';
 	import '../app.css';
+	import { initializeCarousel } from '$lib/components/carousel';
 
-  onMount(() => {
-    import('$lib/carousel')
-  })
+	onMount(() => {
+		initializeCarousel();
+	});
 </script>
 
 <header>
