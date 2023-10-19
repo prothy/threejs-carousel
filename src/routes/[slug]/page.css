@@ -1,0 +1,54 @@
+.page-container {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    min-height: 100vh;
+    background: #e1d0b3;
+    color: #2e2e2e;
+    font-size: 30pt;
+
+    animation: component-transition 300ms ease-in;
+}
+
+.page-container > section {
+    width: 1000px;
+    margin: 10rem auto;
+}
+
+
+.page-container > section > * {
+    opacity: 0;
+    animation: 300ms ease-in 300ms text-transition forwards;
+}
+
+.page-container h1 {
+    font-size: 80pt;
+    line-height: 2em;
+}
+
+.page-container p {
+    margin-bottom: 1em;
+}
+
+
+@keyframes component-transition {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes text-transition {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}

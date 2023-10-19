@@ -57,11 +57,11 @@ class Pointer {
 			}
 		});
 
-		return intersects;
+		return { activeObject: this.activeObject, isMouseOver: !!intersects.length };
 	}
 
-	getCurrentLink(): string | undefined {
-		return this.activeObject?.link;
+	getActiveObject(): ObjectConfig | null {
+		return this.activeObject;
 	}
 
 	renderer: WebGLRenderer;

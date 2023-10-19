@@ -2,9 +2,9 @@ import * as Three from 'three';
 import Circle from './Circle';
 import { CAMERA_Y, CAMERA_Z, CANVAS_HEIGHT, CANVAS_WIDTH, ROTATE_X } from './constants';
 import Pointer from './Pointer';
-import { objectConfigArray } from '$lib/config';
+import { objectConfigArray, type ObjectConfig } from '$lib/config';
 
-export function initializeCarousel() {
+export function initializeCarousel(onClick: (object: ObjectConfig) => void) {
 	const scene = new Three.Scene();
 	const camera = new Three.PerspectiveCamera(50, CANVAS_WIDTH / CANVAS_HEIGHT, 0.1, 1000);
 
@@ -49,7 +49,13 @@ export function initializeCarousel() {
 	});
 
 	mainElement?.addEventListener('mousedown', () => {
-		console.log(pointer.getCurrentLink());
+		const activeObject = pointer.getActiveObject();
+
+		if (!activeObject) {
+			return;
+		}
+
+		onClick(activeObject);
 	});
 
 	function handleCarouselAnimation(action: keyof Circle) {
@@ -61,9 +67,9 @@ export function initializeCarousel() {
 	function animate() {
 		requestAnimationFrame(animate);
 
-		const intersects = pointer.handleIntersects();
+		const { isMouseOver } = pointer.handleIntersects();
 
-		if (!intersects.length) {
+		if (!isMouseOver) {
 			handleCarouselAnimation('move');
 		}
 
