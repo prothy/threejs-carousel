@@ -1,5 +1,8 @@
-import { WebGLRenderer } from 'three';
+import { objectConfigArray } from '$lib/config';
+import type { ObjectConfig } from '$lib/config';
+import type { WebGLRenderer } from 'three';
 import * as Three from 'three';
+import type Circle from './Circle';
 
 const raycaster = new Three.Raycaster();
 
@@ -9,12 +12,17 @@ const pickPosition = {
 };
 
 class Pointer {
-	constructor(renderer: WebGLRenderer, camera: Three.Camera, scene: Three.Scene) {
+	constructor(
+		renderer: WebGLRenderer,
+		camera: Three.Camera,
+		scene: Three.Scene,
+		circles: Circle[]
+	) {
 		this.renderer = renderer;
 		this.camera = camera;
 		this.scene = scene;
-
-		this.getCanvasRelativePosition.bind(this);
+		this.circles = circles;
+		this.activeObject = null;
 	}
 
 	private getCanvasRelativePosition(event: MouseEvent) {
@@ -35,21 +43,32 @@ class Pointer {
 
 	handleIntersects() {
 		raycaster.setFromCamera(pickPosition as Three.Vector2, this.camera);
-		const intersects = raycaster.intersectObjects(this.scene.children);
+		const intersects = raycaster.intersectObjects(this.circles.map((circle) => circle.mesh));
 
-		for (let i = 0; i < intersects.length; i++) {
-			if (intersects.length) {
+		this.circles.forEach((circle, index) => {
+			const intersect = raycaster.intersectObject(circle.mesh);
+
+			if (intersect.length) {
 				// @ts-ignore
-				intersects[i].object.material.color.set(0xff0000);
+				intersect[0].object.material.color.set(0xff0000);
+				this.activeObject = objectConfigArray[index];
+			} else {
+				// this.activeObject = null;
 			}
-		}
+		});
 
 		return intersects;
+	}
+
+	getCurrentLink(): string | undefined {
+		return this.activeObject?.link;
 	}
 
 	renderer: WebGLRenderer;
 	camera: Three.Camera;
 	scene: Three.Scene;
+	circles: Circle[];
+	activeObject: ObjectConfig | null;
 }
 
 export default Pointer;

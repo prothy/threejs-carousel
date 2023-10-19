@@ -49,8 +49,5 @@ header nav a {
 main {
     display: flex;
     position: relative;
-
     justify-content: center;
-    height: 50vh;
-    width: 50vw;
 }

@@ -1,3 +1,8 @@
+// CANVAS
+
+export const CANVAS_WIDTH = 1000;
+export const CANVAS_HEIGHT = 600;
+
 //
 // CAMERA
 //
@@ -15,9 +20,9 @@ export const SPEED = 0.002;
 export const CIRCLE_RADIUS = 5;
 
 export const ORIGIN = {
-    x: 0,
-    y: -2,
-    z: -5
+	x: 0,
+	y: 1.5,
+	z: 0
 };
 
 export const ANGLE_COEFFICIENT = Math.PI * 2;
