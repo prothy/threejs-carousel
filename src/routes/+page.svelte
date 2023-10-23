@@ -3,11 +3,10 @@
 	import { initializeCarousel } from '$lib/components/Carousel';
 	import { page } from '$app/stores';
 	import type { ObjectConfig } from '$lib/config';
-
-	let currentLink: string | undefined = undefined;
+	import { goto } from '$app/navigation';
 
 	const onClick = (activeObject: ObjectConfig) => {
-		location.assign(activeObject?.link);
+		goto(activeObject?.link);
 	};
 
 	onMount(() => {

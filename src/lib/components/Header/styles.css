@@ -1,0 +1,29 @@
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 8rem;
+	padding: 2rem 4rem 2rem 4rem;
+}
+
+header img {
+	height: 80px;
+}
+
+header nav {
+	font-size: 16pt;
+}
+
+header nav a {
+	color: var(--white);
+	margin-left: 1rem;
+	text-decoration: none;
+}
+
+header nav a:hover {
+    color: var(--gold);
+}
+
+.active-link {
+    font-size: 30pt;
+}

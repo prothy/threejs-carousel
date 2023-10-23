@@ -7,6 +7,7 @@
 :root {
 	font-family: 'Cardo', serif;
 	--white: #e0e0e0;
+	--gold: #e1d0b3;
 	--sphere-size: 120px;
 	--height-container: 400px;
 	--top-1: calc(0.25 * var(--height-container));
@@ -22,28 +23,6 @@ body {
 	background: url('assets/bg.png');
 	color: var(--white);
 	min-height: 100vh;
-}
-
-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	height: 8rem;
-	padding: 2rem 4rem 2rem 4rem;
-}
-
-header > img {
-	height: 80px;
-}
-
-header nav {
-	font-size: 16pt;
-}
-
-header nav a {
-	color: var(--white);
-	margin-left: 1rem;
-	text-decoration: none;
 }
 
 main {

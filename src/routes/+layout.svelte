@@ -1,11 +1,11 @@
 <script>
-	import Header from '$lib/components/Header.svelte';
+	import Header from '$lib/components/Header/Header.svelte';
 	import '../app.css';
 </script>
 
 <head>
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
 	<link
 		href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&family=Outfit:wght@300&display=swap"
 		rel="stylesheet"

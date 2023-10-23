@@ -3,10 +3,10 @@
     top: 0;
     width: 100vw;
     min-height: 100vh;
-    background: #e1d0b3;
+    background: var(--gold);
     color: #2e2e2e;
     font-size: 30pt;
-
+    z-index: -1;
     animation: component-transition 300ms ease-in;
 }
 
@@ -29,7 +29,6 @@
 .page-container p {
     margin-bottom: 1em;
 }
-
 
 @keyframes component-transition {
     from {
