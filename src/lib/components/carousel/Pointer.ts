@@ -50,10 +50,8 @@ class Pointer {
 
 			if (intersect.length) {
 				// @ts-ignore
-				intersect[0].object.material.color.set(0xff0000);
+				intersect[0].object.material.emissive.set(0xefefef);
 				this.activeObject = objectConfigArray[index];
-			} else {
-				// this.activeObject = null;
 			}
 		});
 

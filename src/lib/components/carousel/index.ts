@@ -3,10 +3,34 @@ import Circle from './Circle';
 import { CAMERA_Y, CAMERA_Z, CANVAS_HEIGHT, CANVAS_WIDTH, ROTATE_X } from './constants';
 import Pointer from './Pointer';
 import { objectConfigArray, type ObjectConfig } from '$lib/config';
+import { degToRad } from 'three/src/math/MathUtils';
 
 export function initializeCarousel(onClick: (object: ObjectConfig) => void) {
 	const scene = new Three.Scene();
 	const camera = new Three.PerspectiveCamera(50, CANVAS_WIDTH / CANVAS_HEIGHT, 0.1, 1000);
+
+	const mainElement = document.querySelector('main') as HTMLElement;
+
+	// mainElement.
+
+	const loader = new Three.TextureLoader();
+	const bgTexture = loader.load('assets/bg.png');
+
+	// TODO
+	const bgGeometry = new Three.PlaneGeometry(38, 23);
+
+	//TODO
+	bgGeometry.rotateX(degToRad(325));
+	const bgMaterial = new Three.MeshBasicMaterial({ map: bgTexture });
+	const bgMesh = new Three.Mesh(bgGeometry, bgMaterial);
+	bgMesh.position.set(0, -6.8, -10);
+	bgTexture.colorSpace = Three.SRGBColorSpace;
+	bgTexture.repeat.set(CANVAS_WIDTH / window.innerWidth, CANVAS_HEIGHT / window.innerHeight);
+
+	// TODO
+	// bgTexture.offset.set(0.2, 0.3);
+	// scene.background = bgTexture;
+	scene.add(bgMesh);
 
 	camera.position.y = CAMERA_Y;
 	camera.position.z = CAMERA_Z;
@@ -18,21 +42,19 @@ export function initializeCarousel(onClick: (object: ObjectConfig) => void) {
 	const directionalLight = new Three.DirectionalLight(color, intensity);
 	const ambientLight = new Three.AmbientLight(color, 1);
 
-	directionalLight.position.set(0, 10, 10);
+	directionalLight.position.set(camera.position.x, camera.position.y, camera.position.z);
 	directionalLight.target.position.set(-5, 0, 0);
-	scene.add(directionalLight);
-	scene.add(directionalLight.target);
+	// scene.add(directionalLight);
+	// scene.add(directionalLight.target);
 
 	ambientLight.position.set(0, 0, -5);
-	scene.add(ambientLight);
+	// scene.add(ambientLight);
 
 	const renderer = new Three.WebGLRenderer({
-		alpha: true,
+		// alpha: true,
 		antialias: true
 	});
 	renderer.setSize(CANVAS_WIDTH, CANVAS_HEIGHT);
-
-	const mainElement = document.querySelector('main') as HTMLCanvasElement;
 	mainElement?.appendChild(renderer.domElement);
 
 	const circles = Array(objectConfigArray.length).fill(null);
